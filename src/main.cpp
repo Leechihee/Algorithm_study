@@ -1,11 +1,7 @@
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <iostream>
 
 using namespace std;
-
-vector<string> WORDS;
 
 class trie{
 public:
@@ -19,7 +15,7 @@ public:
 	node* head;
 	trie() {head = new node(' ');}
 	void input(string str);
-	int min_length(string str);
+	int AutoCorrect(string str);
 };
 
 trie::node* Find(vector<trie::node*>::iterator start, vector<trie::node*>::iterator end, char target)
@@ -50,7 +46,7 @@ void trie::input(string str)
 	}
 }
 
-int trie::min_length(string str)
+int trie::AutoCorrect(string str)
 {
 	node* cur = head;
 	string temp = "";
@@ -66,18 +62,11 @@ int trie::min_length(string str)
 
 int solution(vector<string> words) {
     int answer = 0;
-	WORDS = words;
 	trie Trie;
 	for(string str : words)
 		Trie.input(str);
 	
 	for(string str : words)
-		answer += Trie.min_length(str);
+		answer += Trie.AutoCorrect(str);
     return answer;
-}
-
-int main()
-{
-	cout << solution({"go","gone","guild"}) << endl;
-	return 0;
 }
