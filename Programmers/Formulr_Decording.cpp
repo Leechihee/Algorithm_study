@@ -10,7 +10,7 @@
 //   1-1. expressions의 원소는 "A + B = C" 혹은 "A - B = C" 형태의 문자열입니다. A, B, C와 연산 기호들은 공백 하나로 구분되어 있습니다.
 //   1-2. A, B는 음이 아닌 두 자릿수 이하의 정수입니다.
 //   1-3. C는 알파벳 X 혹은 음이 아닌 세 자릿수 이하의 정수입니다. C가 알파벳 X인 수식은 결괏값이 지워진 수식을 의미하며, 이러한 수식은 한 번 이상 등장합니다.
-//   	   결괏값이 음수가 되거나 서로 모순되는 수식은 주어지지 않습니다.
+//   	  결괏값이 음수가 되거나 서로 모순되는 수식은 주어지지 않습니다.
 // 가 주어진다.
 
 // 문제 자체의 난이도는 타 문제와 비교해서는 그리 어려운 편은 아니다.
@@ -48,7 +48,7 @@ int toDecimal(int target, int digit)
 	for(int i = 1;target>0;i++)
 	{
 		if(target%10 >= digit) // 만약 해당진법이 아닌 경우
-			return -1; // 나올 수 없는 음수로 리턴
+			return -1; // 나올 수 없는 수인 음수로 리턴
 		ret += (target%10) * sq(i,digit);
 		target /= 10;
 	}
@@ -84,7 +84,7 @@ void Cut_str(vector<string> e)
 // 예상진법을 찾는 함수
 void Find_digit()
 {
-	map<int,int> M; // 모든 수식에서 진법이 사용되어야하므로 map을 선언하여 해당 수식에서 사용할 수 있는 진법인지 확인
+	map<int,int> M; // 모든 수식에서 진법이 사용되어야하므로 수식마다 진법을 사용가능한지 체크하기 위한 map 선언
 	for(int i = 2;i<10;i++) // 초기값 선언
 		M[i] = 0;
 	for(vector<string> v : Ans) // 모든 수식을 탐색
@@ -150,7 +150,7 @@ void Decording(vector<string>& A)
 			else
 				C = A - B;
 			
-			S.insert(toNdigit(C,digit[i]));
+			S.insert(toNdigit(C,digit[i])); // 계산한 값을 해당진법으로 변환 후 셋에 삽입
 		}
 		
 		string temp = "";
